@@ -1,0 +1,7 @@
+{
+  "name": "Local Roots Farm",
+  "description": "A mobile-first farm shop application enabling customers to order fresh produce, manage subscriptions, and checkout via WhatsApp, featuring an AI-powered shopping assistant.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
