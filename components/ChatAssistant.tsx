@@ -7,7 +7,7 @@ import { Frequency, Product } from '../types';
 
 // Use serverless function in production, local API in development
 const callChatAPI = async (history: any[], sessionId: string) => {
-  const isDevelopment = import.meta.env.DEV;
+  const isDevelopment = import.meta.env?.DEV ?? process.env.NODE_ENV === 'development';
   
   if (isDevelopment) {
     // Local development - use client-side API
