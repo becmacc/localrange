@@ -1,23 +1,32 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot, Loader2 } from 'lucide-react';
+import { handleChatRequest } from '../api/chat';
 import { PRODUCTS } from '../constants';
 import { Frequency, Product } from '../types';
 
-// Call serverless function instead of local API
+// Use serverless function in production, local API in development
 const callChatAPI = async (history: any[], sessionId: string) => {
-  const response = await fetch('/api/chat-endpoint', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ history, sessionId, products: PRODUCTS })
-  });
+  const isDevelopment = import.meta.env.DEV;
   
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || 'Failed to get response');
+  if (isDevelopment) {
+    // Local development - use client-side API
+    return await handleChatRequest(history, sessionId);
+  } else {
+    // Production - use serverless function
+    const response = await fetch('/api/chat-endpoint', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ history, sessionId, products: PRODUCTS })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to get response');
+    }
+    
+    return response.json();
   }
-  
-  return response.json();
 };
 
 interface ChatAssistantProps {
