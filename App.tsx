@@ -235,7 +235,7 @@ const CustomerApp: React.FC = () => {
       `*Total Estimate:* $${cartTotal.toFixed(2)}\n\n` +
       `_Order is pending manual confirmation on WhatsApp._`;
 
-    const number = process.env.VITE_WHATSAPP_NUMBER;
+    const number = import.meta.env.VITE_WHATSAPP_NUMBER;
     const link = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
     
     // Redirect
@@ -418,7 +418,7 @@ const AdminPage: React.FC = () => {
   const [isAuth, setIsAuth] = useState(false);
   const handleLogin = (e: any) => {
     e.preventDefault();
-    if (password === process.env.VITE_ADMIN_PASSWORD) setIsAuth(true);
+    if (password === import.meta.env.VITE_ADMIN_PASSWORD) setIsAuth(true);
     else alert('Incorrect password');
   };
   if (!isAuth) return (

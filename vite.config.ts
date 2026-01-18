@@ -16,9 +16,6 @@ export default defineConfig(({ mode }) => {
       ...(mode === 'development' && {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       }),
-      // Always expose VITE_ prefixed env vars
-      'process.env.VITE_ADMIN_PASSWORD': JSON.stringify(env.VITE_ADMIN_PASSWORD),
-      'process.env.VITE_WHATSAPP_NUMBER': JSON.stringify(env.VITE_WHATSAPP_NUMBER),
     },
     resolve: {
       alias: {
